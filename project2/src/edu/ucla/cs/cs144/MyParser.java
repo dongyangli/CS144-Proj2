@@ -231,25 +231,25 @@ class MyParser {
                     columnSeparator + country + columnSeparator + description + columnSeparator + buy_price + columnSeparator + 
                     firstbid + columnSeparator + currently + columnSeparator + numberofbids + columnSeparator + 
                     started + columnSeparator + ends);
-
+                //Users
+                pUsersFile.println(sellerID + columnSeparator + "" + columnSeparator + "");
                 //Sellers
                 String sellerRating = seller.getAttribute("Rating");
                 pSellersFile.println(sellerID + columnSeparator + sellerRating);
-                //Users
-                pUsersFile.println(sellerID + columnSeparator + "" + columnSeparator + "");
 
                 //Bidders
                 Element bids = getElementByTagNameNR(item, "Bids");
                 Element[] bid = getElementsByTagNameNR(bids, "Bid");
                 for(int j = 0; j < bid.length; j++){
                     Element bidder = getElementByTagNameNR(bid[j], "Bidder");
-                    String biddersID = bidder.getAttribute("UserID");
-                    String biddersRating = bidder.getAttribute("Rating");
-                    pBiddersFile.println(biddersID + columnSeparator + biddersRating);
+                   	String biddersID = bidder.getAttribute("UserID");
                     //Users
                     String biddersLocation = getElementTextByTagNameNR(bidder, "Location");
                     String biddersCountry = getElementTextByTagNameNR(bidder, "Country");
                     pUsersFile.println(biddersID + columnSeparator + biddersLocation + columnSeparator + biddersCountry);
+					//Bidders
+                    String biddersRating = bidder.getAttribute("Rating");
+                    pBiddersFile.println(biddersID + columnSeparator + biddersRating);
                     //Bids
                     String time = getElementTextByTagNameNR(bid[j], "Time");
                     String amount = getElementTextByTagNameNR(bid[j], "Amount");
@@ -260,8 +260,8 @@ class MyParser {
                 Element[] categories = getElementsByTagNameNR(item, "Category");
                 for(int j = 0; j < categories.length; j++){
                     String category = getElementText(categories[j]);
+					pCategoriesFile.println(category);
                     pItemCategoryFile.println(itemID + columnSeparator + category);
-                    pCategoriesFile.println(category);
                 }
 
             }

@@ -9,7 +9,8 @@ mysql CS144 < create.sql
 
 # Compile and run the parser to generate the appropriate load files
 ant
-ant run-all
+ant run
+#ant run-all
 
 # If the Java code does not handle duplicate removal, do this now
 sort -u users.dat -o users.dat
@@ -24,6 +25,6 @@ sort -u itemCategory.dat -o itemCategory.dat
 mysql CS144 < load.sql
 
 # Remove .dat files to prevent appending
-rm *.dat
+#rm *.dat
 ant clean
 
