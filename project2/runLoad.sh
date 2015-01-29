@@ -24,11 +24,6 @@ sort -u itemCategory.dat -o itemCategory.dat
 mysql CS144 < load.sql
 
 # Remove .dat files to prevent appending
-rm users.dat
-rm sellers.dat
-rm bidders.dat
-rm items.dat
-rm bids.dat
-rm categories.dat
-rm itemCategory.dat
+rm *.dat
+rm -rf bin
 
