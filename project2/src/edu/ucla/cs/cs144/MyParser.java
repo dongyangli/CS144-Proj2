@@ -249,7 +249,7 @@ class MyParser {
                     //Users
                     String biddersLocation = getElementTextByTagNameNR(bidder, "Location");
                     String biddersCountry = getElementTextByTagNameNR(bidder, "Country");
-                    pUsersFile.println(sellerID + columnSeparator + biddersLocation + columnSeparator + biddersCountry);
+                    pUsersFile.println(biddersID + columnSeparator + biddersLocation + columnSeparator + biddersCountry);
                     //Bids
                     String time = getElementTextByTagNameNR(bid[j], "Time");
                     String amount = getElementTextByTagNameNR(bid[j], "Amount");
