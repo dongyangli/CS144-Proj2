@@ -185,25 +185,25 @@ class MyParser {
         Element root = doc.getDocumentElement();
     
         try {
-            FileOutputStream itemFile = new FileOutputStream("Items.dat");
+            FileOutputStream itemFile = new FileOutputStream("items.dat");
             PrintStream pItemFile = new PrintStream(itemFile);
 
-            FileOutputStream usersFile = new FileOutputStream("Users.dat");
+            FileOutputStream usersFile = new FileOutputStream("users.dat");
             PrintStream pUsersFile = new PrintStream(usersFile);
 
-            FileOutputStream sellersFile = new FileOutputStream("Sellers.dat");
+            FileOutputStream sellersFile = new FileOutputStream("sellers.dat");
             PrintStream pSellersFile = new PrintStream(sellersFile);
 
-            FileOutputStream biddersFile = new FileOutputStream("Bidders.dat");
+            FileOutputStream biddersFile = new FileOutputStream("bidders.dat");
             PrintStream pBiddersFile = new PrintStream(biddersFile);
 
-            FileOutputStream bidsFile = new FileOutputStream("Bids.dat");
+            FileOutputStream bidsFile = new FileOutputStream("bids.dat");
             PrintStream pBidsFile = new PrintStream(bidsFile);
 
-            FileOutputStream categoriesFile = new FileOutputStream("Categories.dat");
+            FileOutputStream categoriesFile = new FileOutputStream("categories.dat");
             PrintStream pCategoriesFile = new PrintStream(categoriesFile);
 
-            FileOutputStream itemCategoryFile = new FileOutputStream("ItemCategory.dat");
+            FileOutputStream itemCategoryFile = new FileOutputStream("itemCategory.dat");
             PrintStream pItemCategoryFile = new PrintStream(itemCategoryFile);
 
             Element[] items = getElementsByTagNameNR(root, "Item");
