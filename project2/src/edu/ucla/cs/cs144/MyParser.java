@@ -182,13 +182,117 @@ class MyParser {
         
         /* Fill in code here (you will probably need to write auxiliary
             methods). */
-        
+        Element root = doc.getDocumentElement();
+    /*
+        try {
+            OutputStream itemFile = new FileOutputStream("items.cvs");
+            Element[] items = getElementsByTagNameNR(root, "item");
+            int itemSize = items.length;
+
+            for (int i = 0; i < itemSize; i++) {
+                Element item = items[i];
+                String itemID = item.getAttribute("ItemID");
+                String userID = item.getAttribute("UserID");
+                itemFile.write(itemID+","+userID);
+            }
+            itemFile.close();
+        }
+        catch(IOException e) {
+            System.out.print("Exception");
+        }  */  
+        try {
+            FileOutputStream itemFile = new FileOutputStream("Items.txt");
+            PrintStream pItemFile = new PrintStream(itemFile);
+
+            FileOutputStream usersFile = new FileOutputStream("Users.txt");
+            PrintStream pUsersFile = new PrintStream(usersFile);
+
+            FileOutputStream sellersFile = new FileOutputStream("Sellers.txt");
+            PrintStream pSellersFile = new PrintStream(sellersFile);
+
+            FileOutputStream biddersFile = new FileOutputStream("Bidders.txt");
+            PrintStream pBiddersFile = new PrintStream(biddersFile);
+
+            FileOutputStream bidsFile = new FileOutputStream("Bids.txt");
+            PrintStream pBidsFile = new PrintStream(bidsFile);
+
+            FileOutputStream categoriesFile = new FileOutputStream("Categories.txt");
+            PrintStream pCategoriesFile = new PrintStream(categoriesFile);
+
+            FileOutputStream itemCategoryFile = new FileOutputStream("ItemCategory.txt");
+            PrintStream pItemCategoryFile = new PrintStream(itemCategoryFile);
+
+            Element[] items = getElementsByTagNameNR(root, "Item");
+
+            for (int i = 0; i < items.length; i++) {
+                Element item = items[i];
+                //Items
+                String itemID = item.getAttribute("ItemID");
+                Element seller = getElementByTagNameNR(item, "Seller");
+                String sellerID = seller.getAttribute("UserID");
+                String name = getElementTextByTagNameNR(item, "Name");
+                String location = getElementTextByTagNameNR(item, "Location");
+                String country = getElementTextByTagNameNR(item, "Country");
+                String description = getElementTextByTagNameNR(item, "Description");
+                if(description.length() > 4000){
+                    description = description.substring(0, 4000);
+                }
+                String buy_price = getElementTextByTagNameNR(item, "Buy_Price");
+                String firstbid = getElementTextByTagNameNR(item, "First_Bid");
+                String currently = getElementTextByTagNameNR(item, "Currently");
+                String numberofbids = getElementTextByTagNameNR(item, "Number_of_Bids");
+                String started = getElementTextByTagNameNR(item, "Started");
+                String ends = getElementTextByTagNameNR(item, "Ends");
+                pItemFile.println(itemID + columnSeparator + sellerID + columnSeparator + name + columnSeparator + location + 
+                    columnSeparator + country + columnSeparator + description + columnSeparator + buy_price + columnSeparator + 
+                    firstbid + columnSeparator + currently + columnSeparator + numberofbids + columnSeparator + 
+                    started + columnSeparator + ends);
+
+                //Sellers
+                String sellerRating = seller.getAttribute("Rating");
+                pSellersFile.println(sellerID + columnSeparator + sellerRating);
+                //Users
+                pUsersFile.println(sellerID + columnSeparator + "" + columnSeparator + "");
+
+                //Bidders
+                Element bids = getElementByTagNameNR(item, "Bids");
+                Element[] bid = getElementsByTagNameNR(bids, "Bid");
+                for(int j = 0; j < bid.length; j++){
+                    Element bidder = getElementByTagNameNR(bid[j], "Bidder");
+                    String biddersID = bidder.getAttribute("UserID");
+                    String biddersRating = bidder.getAttribute("Rating");
+                    pBiddersFile.println(biddersID + columnSeparator + biddersRating);
+                    //Users
+                    String biddersLocation = getElementTextByTagNameNR(bidder, "Location");
+                    String biddersCountry = getElementTextByTagNameNR(bidder, "Country");
+                    pUsersFile.println(sellerID + columnSeparator + biddersLocation + columnSeparator + biddersCountry);
+                    //Bids
+                    String time = getElementTextByTagNameNR(bid[j], "Time");
+                    String amount = getElementTextByTagNameNR(bid[j], "Amount");
+                    pBidsFile.println(biddersID + columnSeparator + itemID + columnSeparator + time + columnSeparator + amount);
+                }
+
+                //Categories
+                Element[] categories = getElementsByTagNameNR(item, "Category");
+                for(int j = 0; j < categories.length; j++){
+                    String category = getElementText(categories[j]);
+                    pItemCategoryFile.println(itemID + columnSeparator + category);
+                    pCategoriesFile.println(category);
+                }
+
+            }
+
+         } 
+         catch (FileNotFoundException e) {
+             e.printStackTrace();
+         }
         
         
         /**************************************************************/
         
     }
     
+
     public static void main (String[] args) {
         if (args.length == 0) {
             System.out.println("Usage: java MyParser [file] [file] ...");
