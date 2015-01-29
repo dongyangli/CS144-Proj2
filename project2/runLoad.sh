@@ -25,5 +25,5 @@ mysql CS144 < load.sql
 
 # Remove .dat files to prevent appending
 rm *.dat
-rm -rf bin
+ant clean
 
