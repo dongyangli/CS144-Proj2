@@ -18,11 +18,16 @@ WHERE Bids.ItemID IN (SELECT ItemCategory.ItemID
 
 
 #4. Find the ID(s) of current (unsold) auction(s) with the highest bid. Remember that the data was captured at the point in time December 20th, 2001, one second after midnight, so you can use this time point to decide which auction(s) are current. Pay special attention to the current auctions without any bid.
-SELECT ItemID, NumberOfBids 
+SELECT ItemID
 FROM Items 
-WHERE NumberOfBids > 0 AND Currently = (SELECT MAX(Currently) 
-											FROM Items 
-											WHERE Ends > '2001-12-20 00:00:01' AND NumberOfBids > 0);
+WHERE NumberOfBids > 0 
+	AND Started < "2001-12-20 00:00:00" 
+	AND Ends > "2001-12-20 00:00:01"
+	AND Currently = (SELECT MAX(Currently) 
+						FROM Items 
+						WHERE Ends > "2001-12-20 00:00:01"
+							AND Started < "2001-12-20 00:00:00" 
+							AND NumberOfBids > 0);
 
 
 #5. Find the number of sellers whose rating is higher than 1000.
