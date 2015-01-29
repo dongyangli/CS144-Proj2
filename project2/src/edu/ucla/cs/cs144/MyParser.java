@@ -183,43 +183,27 @@ class MyParser {
         /* Fill in code here (you will probably need to write auxiliary
             methods). */
         Element root = doc.getDocumentElement();
-    /*
+    
         try {
-            OutputStream itemFile = new FileOutputStream("items.cvs");
-            Element[] items = getElementsByTagNameNR(root, "item");
-            int itemSize = items.length;
-
-            for (int i = 0; i < itemSize; i++) {
-                Element item = items[i];
-                String itemID = item.getAttribute("ItemID");
-                String userID = item.getAttribute("UserID");
-                itemFile.write(itemID+","+userID);
-            }
-            itemFile.close();
-        }
-        catch(IOException e) {
-            System.out.print("Exception");
-        }  */  
-        try {
-            FileOutputStream itemFile = new FileOutputStream("Items.txt");
+            FileOutputStream itemFile = new FileOutputStream("Items.dat");
             PrintStream pItemFile = new PrintStream(itemFile);
 
-            FileOutputStream usersFile = new FileOutputStream("Users.txt");
+            FileOutputStream usersFile = new FileOutputStream("Users.dat");
             PrintStream pUsersFile = new PrintStream(usersFile);
 
-            FileOutputStream sellersFile = new FileOutputStream("Sellers.txt");
+            FileOutputStream sellersFile = new FileOutputStream("Sellers.dat");
             PrintStream pSellersFile = new PrintStream(sellersFile);
 
-            FileOutputStream biddersFile = new FileOutputStream("Bidders.txt");
+            FileOutputStream biddersFile = new FileOutputStream("Bidders.dat");
             PrintStream pBiddersFile = new PrintStream(biddersFile);
 
-            FileOutputStream bidsFile = new FileOutputStream("Bids.txt");
+            FileOutputStream bidsFile = new FileOutputStream("Bids.dat");
             PrintStream pBidsFile = new PrintStream(bidsFile);
 
-            FileOutputStream categoriesFile = new FileOutputStream("Categories.txt");
+            FileOutputStream categoriesFile = new FileOutputStream("Categories.dat");
             PrintStream pCategoriesFile = new PrintStream(categoriesFile);
 
-            FileOutputStream itemCategoryFile = new FileOutputStream("ItemCategory.txt");
+            FileOutputStream itemCategoryFile = new FileOutputStream("ItemCategory.dat");
             PrintStream pItemCategoryFile = new PrintStream(itemCategoryFile);
 
             Element[] items = getElementsByTagNameNR(root, "Item");
