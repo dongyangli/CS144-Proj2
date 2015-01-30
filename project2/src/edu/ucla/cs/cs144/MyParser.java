@@ -261,7 +261,7 @@ class MyParser {
                 itemFile.newLine();
 
                 //Users
-                usersFile.write(sellerID + columnSeparator + location + latitude + longitude + columnSeparator + country);
+                usersFile.write(sellerID + columnSeparator + location + columnSeparator + latitude + columnSeparator + longitude + columnSeparator + country);
                 usersFile.newLine();
                 //Sellers
                 String sellerRating = seller.getAttribute("Rating");
