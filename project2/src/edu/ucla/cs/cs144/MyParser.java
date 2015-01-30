@@ -185,6 +185,15 @@ class MyParser {
         Element root = doc.getDocumentElement();
     
         try {
+            BufferedWriter itemFile = new BufferedWriter(new FileWriter("items.dat"));
+            BufferedWriter usersFile = new BufferedWriter(new FileWriter("users.dat"));
+            BufferedWriter sellersFile = new BufferedWriter(new FileWriter("bidders.dat"));
+            BufferedWriter biddersFile = new BufferedWriter(new FileWriter("sellers.dat"));
+            BufferedWriter bidsFile = new BufferedWriter(new FileWriter("bids.dat"));
+            BufferedWriter categoriesFile = new BufferedWriter(new FileWriter("categories.dat"));
+            BufferedWriter itemCategoryFile = new BufferedWriter(new FileWriter("itemCategory.dat"));
+
+/*
             FileOutputStream itemFile = new FileOutputStream("items.dat");
             PrintStream pItemFile = new PrintStream(itemFile);
 
@@ -204,7 +213,7 @@ class MyParser {
             PrintStream pCategoriesFile = new PrintStream(categoriesFile);
 
             FileOutputStream itemCategoryFile = new FileOutputStream("itemCategory.dat");
-            PrintStream pItemCategoryFile = new PrintStream(itemCategoryFile);
+            PrintStream pItemCategoryFile = new PrintStream(itemCategoryFile);*/
 
             Element[] items = getElementsByTagNameNR(root, "Item");
 
@@ -245,15 +254,19 @@ class MyParser {
                 String numberofbids = getElementTextByTagNameNR(item, "Number_of_Bids");
                 String started = getElementTextByTagNameNR(item, "Started");
                 String ends = getElementTextByTagNameNR(item, "Ends");
-                pItemFile.println(itemID + columnSeparator + sellerID + columnSeparator + name + columnSeparator + location + 
+                itemFile.write(itemID + columnSeparator + sellerID + columnSeparator + name + columnSeparator + location + 
                     columnSeparator + country + columnSeparator + description + columnSeparator + buy_price + columnSeparator + 
                     firstbid + columnSeparator + currently + columnSeparator + numberofbids + columnSeparator + 
                     started + columnSeparator + ends);
+                itemFile.newLine();
+
                 //Users
-                pUsersFile.println(sellerID + columnSeparator + location + latitude + longitude + columnSeparator + country);
+                usersFile.write(sellerID + columnSeparator + location + latitude + longitude + columnSeparator + country);
+                usersFile.newLine();
                 //Sellers
                 String sellerRating = seller.getAttribute("Rating");
-                pSellersFile.println(sellerID + columnSeparator + sellerRating);
+                sellersFile.write(sellerID + columnSeparator + sellerRating);
+                sellersFile.newLine();
 
                 //Bidders
                 Element bids = getElementByTagNameNR(item, "Bids");
@@ -283,29 +296,41 @@ class MyParser {
                     if(biddersCountry == ""){
                         biddersCountry = "\\N";
                     }
-                    pUsersFile.println(biddersID + columnSeparator + biddersLocation + columnSeparator + biddersLatitude + columnSeparator + 
+                    usersFile.write(biddersID + columnSeparator + biddersLocation + columnSeparator + biddersLatitude + columnSeparator + 
                         biddersLongitude + columnSeparator + biddersCountry);
+                    usersFile.newLine();
 					//Bidders
                     String biddersRating = bidder.getAttribute("Rating");
-                    pBiddersFile.println(biddersID + columnSeparator + biddersRating);
+                    biddersFile.write(biddersID + columnSeparator + biddersRating);
+                    biddersFile.newLine();
                     //Bids
                     String time = getElementTextByTagNameNR(bid[j], "Time");
                     String amount = getElementTextByTagNameNR(bid[j], "Amount");
-                    pBidsFile.println(biddersID + columnSeparator + itemID + columnSeparator + time + columnSeparator + amount);
+                    bidsFile.write(biddersID + columnSeparator + itemID + columnSeparator + time + columnSeparator + amount);
+                    bidsFile.newLine();
                 }
 
                 //Categories
                 Element[] categories = getElementsByTagNameNR(item, "Category");
                 for(int j = 0; j < categories.length; j++){
                     String category = getElementText(categories[j]);
-					pCategoriesFile.println(category);
-                    pItemCategoryFile.println(itemID + columnSeparator + category);
+					categoriesFile.write(category);
+                    categoriesFile.newLine();
+                    itemCategoryFile.write(itemID + columnSeparator + category);
+                    itemCategoryFile.newLine();
                 }
 
             }
+            itemFile.close();
+            usersFile.close();
+            sellersFile.close();
+            biddersFile.close();
+            bidsFile.close();
+            categoriesFile.close();
+            itemCategoryFile.close();
 
          } 
-         catch (FileNotFoundException e) {
+         catch (IOException e) {
              e.printStackTrace();
          }
         
