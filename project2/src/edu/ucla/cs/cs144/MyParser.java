@@ -157,6 +157,21 @@ class MyParser {
             return nf.format(am).substring(1);
         }
     }
+
+    static String convertDate(String date){
+        SimpleDateFormat oldFormat = new SimpleDateFormat("MMM-dd-yy HH:mm:ss");
+        SimpleDateFormat newFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String result = "";
+        try{
+            Date d = oldFormat.parse(date);
+            result = newFormat.format(d);
+        }
+        catch(ParseException e){
+            System.out.println("Can not convert date format.");
+        }
+        return result;
+    }
+
     
     /* Process one items-???.xml file.
      */
@@ -187,8 +202,8 @@ class MyParser {
         try {
             BufferedWriter itemFile = new BufferedWriter(new FileWriter("items.dat"));
             BufferedWriter usersFile = new BufferedWriter(new FileWriter("users.dat"));
-            BufferedWriter sellersFile = new BufferedWriter(new FileWriter("bidders.dat"));
-            BufferedWriter biddersFile = new BufferedWriter(new FileWriter("sellers.dat"));
+            BufferedWriter sellersFile = new BufferedWriter(new FileWriter("sellers.dat"));
+            BufferedWriter biddersFile = new BufferedWriter(new FileWriter("bidders.dat"));
             BufferedWriter bidsFile = new BufferedWriter(new FileWriter("bids.dat"));
             BufferedWriter categoriesFile = new BufferedWriter(new FileWriter("categories.dat"));
             BufferedWriter itemCategoryFile = new BufferedWriter(new FileWriter("itemCategory.dat"));
@@ -245,23 +260,24 @@ class MyParser {
                 if(description.length() > 4000){
                     description = description.substring(0, 4000);
                 }
-                String buy_price = getElementTextByTagNameNR(item, "Buy_Price");
+                String buy_price = strip(getElementTextByTagNameNR(item, "Buy_Price"));
                 if(buy_price == ""){
                     buy_price = "\\N";
                 }
-                String firstbid = getElementTextByTagNameNR(item, "First_Bid");
-                String currently = getElementTextByTagNameNR(item, "Currently");
+                String firstbid = strip(getElementTextByTagNameNR(item, "First_Bid"));
+                String currently = strip(getElementTextByTagNameNR(item, "Currently"));
                 String numberofbids = getElementTextByTagNameNR(item, "Number_of_Bids");
-                String started = getElementTextByTagNameNR(item, "Started");
-                String ends = getElementTextByTagNameNR(item, "Ends");
+                String started = convertDate(getElementTextByTagNameNR(item, "Started"));
+                String ends = convertDate(getElementTextByTagNameNR(item, "Ends"));
                 itemFile.write(itemID + columnSeparator + sellerID + columnSeparator + name + columnSeparator + location + 
-                    columnSeparator + country + columnSeparator + description + columnSeparator + buy_price + columnSeparator + 
-                    firstbid + columnSeparator + currently + columnSeparator + numberofbids + columnSeparator + 
-                    started + columnSeparator + ends);
+                    columnSeparator + latitude + columnSeparator + longitude + columnSeparator + country + columnSeparator + 
+                    description + columnSeparator + buy_price + columnSeparator + firstbid + columnSeparator + currently + 
+                    columnSeparator + numberofbids + columnSeparator + started + columnSeparator + ends);
                 itemFile.newLine();
 
                 //Users
-                usersFile.write(sellerID + columnSeparator + location + columnSeparator + latitude + columnSeparator + longitude + columnSeparator + country);
+                usersFile.write(sellerID + columnSeparator + location + columnSeparator + latitude + columnSeparator + longitude + 
+                    columnSeparator + country);
                 usersFile.newLine();
                 //Sellers
                 String sellerRating = seller.getAttribute("Rating");
@@ -304,8 +320,8 @@ class MyParser {
                     biddersFile.write(biddersID + columnSeparator + biddersRating);
                     biddersFile.newLine();
                     //Bids
-                    String time = getElementTextByTagNameNR(bid[j], "Time");
-                    String amount = getElementTextByTagNameNR(bid[j], "Amount");
+                    String time = convertDate(getElementTextByTagNameNR(bid[j], "Time"));
+                    String amount = strip(getElementTextByTagNameNR(bid[j], "Amount"));
                     bidsFile.write(biddersID + columnSeparator + itemID + columnSeparator + time + columnSeparator + amount);
                     bidsFile.newLine();
                 }
