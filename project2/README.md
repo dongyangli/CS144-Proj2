@@ -16,7 +16,7 @@ Answers to Part B:
 2. List all completely nontrivial functional dependencies that hold on each relation, excluding those that effectively specify keys.
 	UserID -> Location, Latitude, Longitude, Country
 	UserID -> Rating (either in Sellers or Bidders)
-	ItemID -> SellerID, Name, (Location, Latitude, Longitude, Country,)? Description, BuyPrice, FirstBid, Currently, NumberOfBids, Started, Ends
+	ItemID -> SellerID, Name, Location, Latitude, Longitude, Country, Description, BuyPrice, FirstBid, Currently, NumberOfBids, Started, Ends
 	BidderID, ItemID, Time -> Amount
 
 3. Are all of your relations in Boyce-Codd Normal Form (BCNF)?
