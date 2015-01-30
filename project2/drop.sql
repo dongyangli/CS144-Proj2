@@ -1,2 +1,2 @@
-DROP TABLE IF EXISTS ItemCategory, Items, Bids, Categories, Sellers, Bidders, Users;
+DROP TABLE IF EXISTS Bids, ItemCategory, Categories, Items, Sellers, Bidders, Users;
 

@@ -25,6 +25,6 @@ sort -u itemCategory.dat -o itemCategory.dat
 mysql CS144 < load.sql
 
 # Remove .dat files to prevent appending
-#rm *.dat
+rm *.dat
 ant clean
 

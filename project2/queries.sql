@@ -11,9 +11,9 @@ WHERE Location = 'New York';
 #3. Find the number of auctions belonging to exactly four categories. 
 SELECT COUNT(*)
 FROM Bids
-WHERE Bids.ItemID IN (SELECT ItemCategory.ItemID 
+WHERE ItemID IN (SELECT ItemID
 				FROM ItemCategory
-				GROUP BY ItemCategory.ItemID
+				GROUP BY ItemID
 				HAVING COUNT(Category) = 4);
 
 
