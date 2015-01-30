@@ -2,8 +2,10 @@ CREATE TABLE IF NOT EXISTS Users
 (
  	UserID     VARCHAR(100) NOT NULL,
  	#Rating     INT(11) NOT NULL,
- 	Location   VARCHAR(100) NOT NULL,
- 	Country    VARCHAR(100) NOT NULL,
+ 	Location   VARCHAR(100),
+	Latitude   VARCHAR(100),
+	Longitude  VARCHAR(100),
+ 	Country    VARCHAR(100),
  
  	PRIMARY KEY(UserID)
 );
@@ -27,13 +29,15 @@ CREATE TABLE IF NOT EXISTS Bidders
 CREATE TABLE IF NOT EXISTS Items 
 (
 	ItemID 			INT(11) NOT NULL,
-	SellerID			VARCHAR(100) NOT NULL,
+	SellerID		VARCHAR(100) NOT NULL,
 	Name			VARCHAR(100) NOT NULL,
  	Location   		VARCHAR(100) NOT NULL,
+	Latitude		VARCHAR(100),
+	Longitude		VARCHAR(100),
  	Country    		VARCHAR(100) NOT NULL,
 	Description 	VARCHAR(4000) NOT NULL,
 	
-	BuyPrice 		DECIMAL(8, 2) NOT NULL,
+	BuyPrice 		DECIMAL(8, 2),
 	FirstBid 		DECIMAL(8, 2) NOT NULL,
 	Currently 		DECIMAL(8, 2) NOT NULL,
 	NumberOfBids 	INT(11),
@@ -53,7 +57,7 @@ CREATE TABLE IF NOT EXISTS ItemCategory
  	ItemID   INT(11) NOT NULL,
  	Category VARCHAR(100) NOT NULL,
 	
-	#FOREIGN KEY (ItemID) REFERENCES Items(ItemID),
+	FOREIGN KEY (ItemID) REFERENCES Items(ItemID),
 	FOREIGN KEY (Category) REFERENCES Categories(Category),
 	PRIMARY KEY(ItemID, Category)
 );
@@ -66,7 +70,7 @@ CREATE TABLE IF NOT EXISTS Bids
  	Time 		TIMESTAMP NOT NULL,
  	Amount 		DECIMAL(8,2) NOT NULL,
  	
-	#FOREIGN KEY (ItemID) REFERENCES Items(ItemID),
+	FOREIGN KEY (ItemID) REFERENCES Items(ItemID),
  	FOREIGN KEY (BidderID) REFERENCES Bidders(UserID),
  	#PRIMARY KEY(BidID)
 	PRIMARY KEY(BidderID, ItemID, Time)
