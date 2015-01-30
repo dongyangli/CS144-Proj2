@@ -200,35 +200,13 @@ class MyParser {
         Element root = doc.getDocumentElement();
     
         try {
-            BufferedWriter itemFile = new BufferedWriter(new FileWriter("items.dat"));
-            BufferedWriter usersFile = new BufferedWriter(new FileWriter("users.dat"));
-            BufferedWriter sellersFile = new BufferedWriter(new FileWriter("sellers.dat"));
-            BufferedWriter biddersFile = new BufferedWriter(new FileWriter("bidders.dat"));
-            BufferedWriter bidsFile = new BufferedWriter(new FileWriter("bids.dat"));
-            BufferedWriter categoriesFile = new BufferedWriter(new FileWriter("categories.dat"));
-            BufferedWriter itemCategoryFile = new BufferedWriter(new FileWriter("itemCategory.dat"));
-
-/*
-            FileOutputStream itemFile = new FileOutputStream("items.dat");
-            PrintStream pItemFile = new PrintStream(itemFile);
-
-            FileOutputStream usersFile = new FileOutputStream("users.dat");
-            PrintStream pUsersFile = new PrintStream(usersFile);
-
-            FileOutputStream sellersFile = new FileOutputStream("sellers.dat");
-            PrintStream pSellersFile = new PrintStream(sellersFile);
-
-            FileOutputStream biddersFile = new FileOutputStream("bidders.dat");
-            PrintStream pBiddersFile = new PrintStream(biddersFile);
-
-            FileOutputStream bidsFile = new FileOutputStream("bids.dat");
-            PrintStream pBidsFile = new PrintStream(bidsFile);
-
-            FileOutputStream categoriesFile = new FileOutputStream("categories.dat");
-            PrintStream pCategoriesFile = new PrintStream(categoriesFile);
-
-            FileOutputStream itemCategoryFile = new FileOutputStream("itemCategory.dat");
-            PrintStream pItemCategoryFile = new PrintStream(itemCategoryFile);*/
+            BufferedWriter itemFile = new BufferedWriter(new FileWriter("items.dat", true));
+            BufferedWriter usersFile = new BufferedWriter(new FileWriter("users.dat", true));
+            BufferedWriter sellersFile = new BufferedWriter(new FileWriter("sellers.dat", true));
+            BufferedWriter biddersFile = new BufferedWriter(new FileWriter("bidders.dat", true));
+            BufferedWriter bidsFile = new BufferedWriter(new FileWriter("bids.dat", true));
+            BufferedWriter categoriesFile = new BufferedWriter(new FileWriter("categories.dat", true));
+            BufferedWriter itemCategoryFile = new BufferedWriter(new FileWriter("itemCategory.dat", true));
 
             Element[] items = getElementsByTagNameNR(root, "Item");
 
