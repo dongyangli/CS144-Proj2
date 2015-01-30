@@ -216,12 +216,30 @@ class MyParser {
                 String sellerID = seller.getAttribute("UserID");
                 String name = getElementTextByTagNameNR(item, "Name");
                 String location = getElementTextByTagNameNR(item, "Location");
+                if(location == ""){
+                    location = "\\N";
+                }
+                Element locationElement = getElementByTagNameNR(item, "Location");
+                String latitude = locationElement.getAttribute("Latitude");
+                if(latitude == ""){
+                    latitude = "\\N";
+                }
+                String longitude = locationElement.getAttribute("Longitude");
+                if(longitude == ""){
+                    longitude = "\\N";
+                }
                 String country = getElementTextByTagNameNR(item, "Country");
+                if(country == ""){
+                    country = "\\N";
+                }
                 String description = getElementTextByTagNameNR(item, "Description");
                 if(description.length() > 4000){
                     description = description.substring(0, 4000);
                 }
                 String buy_price = getElementTextByTagNameNR(item, "Buy_Price");
+                if(buy_price == ""){
+                    buy_price = "\\N";
+                }
                 String firstbid = getElementTextByTagNameNR(item, "First_Bid");
                 String currently = getElementTextByTagNameNR(item, "Currently");
                 String numberofbids = getElementTextByTagNameNR(item, "Number_of_Bids");
@@ -232,7 +250,7 @@ class MyParser {
                     firstbid + columnSeparator + currently + columnSeparator + numberofbids + columnSeparator + 
                     started + columnSeparator + ends);
                 //Users
-                pUsersFile.println(sellerID + columnSeparator + "" + columnSeparator + "");
+                pUsersFile.println(sellerID + columnSeparator + location + latitude + longitude + columnSeparator + country);
                 //Sellers
                 String sellerRating = seller.getAttribute("Rating");
                 pSellersFile.println(sellerID + columnSeparator + sellerRating);
@@ -245,8 +263,28 @@ class MyParser {
                    	String biddersID = bidder.getAttribute("UserID");
                     //Users
                     String biddersLocation = getElementTextByTagNameNR(bidder, "Location");
+                    if(biddersLocation == ""){
+                        biddersLocation = "\\N";
+                    }
+                    Element biddersLocationElement = getElementByTagNameNR(bidder, "Location");
+                    String biddersLatitude = "\\N";
+                    String biddersLongitude = "\\N";
+                    if(biddersLocationElement != null){
+                        biddersLatitude = biddersLocationElement.getAttribute("Latitude");
+                        if(biddersLatitude == ""){
+                            biddersLatitude = "\\N";
+                        }
+                        biddersLongitude = biddersLocationElement.getAttribute("Longitude");
+                        if(biddersLongitude == ""){
+                            biddersLongitude = "\\N";
+                        }
+                    }
                     String biddersCountry = getElementTextByTagNameNR(bidder, "Country");
-                    pUsersFile.println(biddersID + columnSeparator + biddersLocation + columnSeparator + biddersCountry);
+                    if(biddersCountry == ""){
+                        biddersCountry = "\\N";
+                    }
+                    pUsersFile.println(biddersID + columnSeparator + biddersLocation + columnSeparator + biddersLatitude + columnSeparator + 
+                        biddersLongitude + columnSeparator + biddersCountry);
 					//Bidders
                     String biddersRating = bidder.getAttribute("Rating");
                     pBiddersFile.println(biddersID + columnSeparator + biddersRating);
